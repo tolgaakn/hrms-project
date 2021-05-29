@@ -13,4 +13,9 @@ public class EmailValidator {
 		Pattern pattern = Pattern.compile(EMAIL_PATTERN, Pattern.CASE_INSENSITIVE);
 		return pattern.matcher(email).find();
 	}
+	
+	
+	public boolean isEmailMatchesWebAddress(String email, String webAddress) {
+		return true;
+	}
 }
