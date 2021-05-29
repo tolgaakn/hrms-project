@@ -2,6 +2,7 @@ package myproject.hrms.business.concretes;
 
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import myproject.hrms.business.abstracts.ActivationCodeService;
@@ -18,7 +19,7 @@ public class ActivationCodeManager implements ActivationCodeService {
 	private ActivationCodeDao activationCodeDao;
 	private UserDao userDao;
 	
-	
+	@Autowired
 	public ActivationCodeManager(ActivationCodeDao activationCodeDao, UserDao userDao) {
 		super();
 		this.activationCodeDao = activationCodeDao;
