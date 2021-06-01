@@ -1,5 +1,6 @@
 package myproject.hrms.api;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,19 +29,19 @@ public class JobAdvertisementsController {
 		this.jobAdvertisementService = jobAdvertisementService;
 	}
 	
-	@GetMapping("/getall")
-	public DataResult<List<JobAdvertisementDto>> findByIsActive(){
-		return this.jobAdvertisementService.findByIsActive();
+	@GetMapping("/getJobAdvertisementDetails")
+	public DataResult<List<JobAdvertisementDto>> getJobAdvertisementDetails(Boolean isActive){
+		return this.jobAdvertisementService.getJobAdvertisementDetails(isActive);
 	}
 	
-	@GetMapping("/getallApplicationDeadline")
-	public DataResult<List<JobAdvertisementDto>> findByIsActiveAndApplicationDeadline(){
-		return this.jobAdvertisementService.findByIsActiveAndApplicationDeadline();
+	@GetMapping("/getAllSortedAscByIsActive")
+	public DataResult<List<JobAdvertisementDto>> getJobAdvertisementDetailsOrderByCreatedDateAsc(){
+		return this.jobAdvertisementService.getAllSortedAscByIsActive();
 	}
 	
-	@GetMapping("/getallCompanyName")
-	public DataResult<List<JobAdvertisementDto>> findByIsActiveAndCompanyName(@RequestParam String companyName){
-		return this.jobAdvertisementService.findByIsActiveAndCompanyName(companyName);
+	@GetMapping("/getAllSortedDescByIsActive")
+	public DataResult<List<JobAdvertisementDto>> getJobAdvertisementDetailsOrderByCreatedDateDesc(){
+		return this.jobAdvertisementService.getAllSortedDescByIsActive();
 	}
 	
 	@PostMapping("/add")
@@ -49,7 +50,12 @@ public class JobAdvertisementsController {
 	}
 	
 	@PostMapping("/delete")
-	public Result delete(@RequestParam int id) {
-		return this.jobAdvertisementService.delete(id);
+	public Result delete(@RequestParam int jobAdvertisementId, @RequestParam int employerId) {
+		return this.jobAdvertisementService.delete(jobAdvertisementId, employerId);
+	}
+	
+	@PostMapping("/updateDeactiveJobAdvertisement")
+	public Result updateDeactiveJobAdvertisement(@RequestParam int jobAdvertisementId, @RequestParam int employerId) {
+		return this.jobAdvertisementService.updateDeactiveJobAdvertisement(jobAdvertisementId, employerId);
 	}
 }

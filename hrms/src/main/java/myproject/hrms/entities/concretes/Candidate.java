@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import myproject.hrms.entities.abstracts.User;
+import myproject.hrms.core.entities.User;
 
 @EqualsAndHashCode(callSuper = false)
 @Data

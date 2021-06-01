@@ -1,10 +1,9 @@
 package myproject.hrms.business.concretes;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import myproject.hrms.business.abstracts.JobAdvertisementService;
@@ -21,23 +20,24 @@ import myproject.hrms.entities.dtos.JobAdvertisementDto;
 public class JobAdvertisementManager implements JobAdvertisementService {
 
 	private JobAdvertisementDao jobAdvertisementDao;
-	private ModelMapper modelMapper;
 	
 	@Autowired
-	public JobAdvertisementManager(JobAdvertisementDao jobAdvertisementDao, ModelMapper modelMapper) {
+	public JobAdvertisementManager(JobAdvertisementDao jobAdvertisementDao) {
 		super();
 		this.jobAdvertisementDao = jobAdvertisementDao;
-		this.modelMapper = modelMapper;
 	}
 
-	private List<JobAdvertisementDto> dtoGenerator(List<JobAdvertisement> adding){
-		List<JobAdvertisementDto> jobAdvertisementDtos = new ArrayList<JobAdvertisementDto>();
-		adding.forEach(item ->{
-			JobAdvertisementDto dto = this.modelMapper.map(item, JobAdvertisementDto.class);
-			dto.setCompanyName(item.getEmployer().getCompanyName());
-			jobAdvertisementDtos.add(dto);
-		});
-		return jobAdvertisementDtos;
+	@Override
+	public DataResult<List<JobAdvertisementDto>> getAllSortedAscByIsActive() {
+		Sort sort = Sort.by(Sort.Direction.ASC, "createdDate");
+		return new SuccessDataResult<List<JobAdvertisementDto>>(this.jobAdvertisementDao.getJobAdvertisementDetails(sort, true));
+	}
+
+
+	@Override
+	public DataResult<List<JobAdvertisementDto>> getAllSortedDescByIsActive() {
+		Sort sort = Sort.by(Sort.Direction.DESC, "createdDate");
+		return new SuccessDataResult<List<JobAdvertisementDto>>(this.jobAdvertisementDao.getJobAdvertisementDetails(sort, true));
 	}
 	
 	@Override
@@ -56,28 +56,24 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 		return new ErrorResult("Hatalı giriş yaptınız");
 	}
 
-	@Override
-	public DataResult<List<JobAdvertisementDto>> findByIsActive() {
-		return new SuccessDataResult<List<JobAdvertisementDto>>(this.dtoGenerator(this.jobAdvertisementDao.findByIsActive(true)));
-	}
 
 	@Override
-	public DataResult<List<JobAdvertisementDto>> findByIsActiveAndApplicationDeadline() {
-		return new SuccessDataResult<List<JobAdvertisementDto>>(this.dtoGenerator(this.jobAdvertisementDao.findByIsActiveOrderByApplicationDeadline(true)));
-	}
-
-	@Override
-	public DataResult<List<JobAdvertisementDto>> findByIsActiveAndCompanyName(String companyName) {
-		return new SuccessDataResult<List<JobAdvertisementDto>>(this.dtoGenerator(this.jobAdvertisementDao.findByIsActiveAndEmployer_CompanyName(true, companyName)));
-	}
-
-	@Override
-	public Result delete(int id) {
-		JobAdvertisement jobAdvertisement = jobAdvertisementDao.getOne(id);
-		jobAdvertisement.setIsActive(false);
-		this.jobAdvertisementDao.save(jobAdvertisement);
+	public Result delete(int jobAdvertisementId, int employerId) {
+		this.jobAdvertisementDao.delete(jobAdvertisementId, employerId);
 		return new SuccessResult("İlan başarıyla silindi.");
 	}
 
 	
+	@Override
+	public Result updateDeactiveJobAdvertisement(int jobAdvertisementId, int employerId) {
+		this.jobAdvertisementDao.updateDeactiveJobAdvertisement(jobAdvertisementId, employerId);
+		return new SuccessResult("İlan kaldırıldı.");
+	}
+
+	
+	@Override
+	public DataResult<List<JobAdvertisementDto>> getJobAdvertisementDetails(Boolean isActive) {
+		return new SuccessDataResult<List<JobAdvertisementDto>>(this.jobAdvertisementDao.getJobAdvertisementDetails(isActive), "Data listelendi.");
+	}
+
 }

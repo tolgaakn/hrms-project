@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import myproject.hrms.business.abstracts.ActivationCodeService;
+import myproject.hrms.core.dataAccess.UserDao;
+import myproject.hrms.core.entities.User;
 import myproject.hrms.core.utilities.results.Result;
 import myproject.hrms.core.utilities.results.SuccessResult;
 import myproject.hrms.dataAccess.abstracts.ActivationCodeDao;
-import myproject.hrms.dataAccess.abstracts.UserDao;
-import myproject.hrms.entities.abstracts.User;
 import myproject.hrms.entities.concretes.ActivationCode;
 
 @Service

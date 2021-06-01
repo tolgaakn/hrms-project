@@ -48,6 +48,9 @@ public class JobAdvertisement {
 	@Column(name = "is_active")
 	private Boolean isActive;
 	
+	@Column(name = "is_deleted")
+	private Boolean isDeleted;
+	
 	@ManyToOne()
 	@JoinColumn(name = "employer_id")
 	private Employer employer;

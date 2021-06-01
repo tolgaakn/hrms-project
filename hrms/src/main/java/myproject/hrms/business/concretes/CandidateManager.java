@@ -9,14 +9,14 @@ import myproject.hrms.business.abstracts.ActivationCodeService;
 import myproject.hrms.business.abstracts.CandidateService;
 import myproject.hrms.core.adapters.EmailValidator;
 import myproject.hrms.core.adapters.MernisDemo;
+import myproject.hrms.core.dataAccess.UserDao;
+import myproject.hrms.core.entities.User;
 import myproject.hrms.core.utilities.results.DataResult;
 import myproject.hrms.core.utilities.results.ErrorResult;
 import myproject.hrms.core.utilities.results.Result;
 import myproject.hrms.core.utilities.results.SuccessDataResult;
 import myproject.hrms.core.utilities.results.SuccessResult;
 import myproject.hrms.dataAccess.abstracts.CandidateDao;
-import myproject.hrms.dataAccess.abstracts.UserDao;
-import myproject.hrms.entities.abstracts.User;
 import myproject.hrms.entities.concretes.Candidate;
 
 @Service
