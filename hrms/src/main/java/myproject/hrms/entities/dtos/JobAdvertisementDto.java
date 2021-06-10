@@ -17,4 +17,9 @@ public class JobAdvertisementDto {
 	private int openPosition;
 	private Date createdDate;
 	private Date applicationDeadline;
+	private int minSalary;
+	private int maxSalary;
+	private String cityName;
+	private String jobTypeName;
+	private String jobTypeColor;
 }

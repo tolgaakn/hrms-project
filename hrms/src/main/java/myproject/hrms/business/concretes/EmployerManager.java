@@ -62,6 +62,11 @@ public class EmployerManager implements EmployerService {
 	public DataResult<User> getByEmail(String email) {
 		return new SuccessDataResult<User>(this.userDao.findByEmail(email));
 	}
+
+	@Override
+	public DataResult<List<Employer>> getByIsActive(Boolean isActive) {
+		return new SuccessDataResult<List<Employer>>(this.employerDao.getByIsActive(isActive));
+	}
 	
 	
 

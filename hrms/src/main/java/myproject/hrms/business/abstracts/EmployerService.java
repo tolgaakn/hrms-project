@@ -11,6 +11,8 @@ public interface EmployerService {
 
 	DataResult<List<Employer>> getAll();
 	
+	DataResult<List<Employer>> getByIsActive(Boolean isActive);
+	
 	DataResult<User> getByEmail(String email);
 	
 	Result add(Employer employer);
