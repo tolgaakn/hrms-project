@@ -51,6 +51,9 @@ public class JobAdvertisement {
 	@Column(name = "is_deleted")
 	private Boolean isDeleted;
 	
+	@Column(name = "is_confirmed")
+	private Boolean isConfirmed;
+	
 	@ManyToOne()
 	@JoinColumn(name = "employer_id")
 	private Employer employer;

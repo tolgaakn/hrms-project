@@ -16,6 +16,7 @@ import myproject.hrms.core.utilities.results.SuccessDataResult;
 import myproject.hrms.core.utilities.results.SuccessResult;
 import myproject.hrms.dataAccess.abstracts.AdvertisementConfirmByEmployeeDao;
 import myproject.hrms.dataAccess.abstracts.JobAdvertisementDao;
+import myproject.hrms.entities.concretes.AdvertisementConfirmByEmployee;
 import myproject.hrms.entities.concretes.JobAdvertisement;
 import myproject.hrms.entities.dtos.JobAdvertisementDto;
 
@@ -23,12 +24,14 @@ import myproject.hrms.entities.dtos.JobAdvertisementDto;
 public class JobAdvertisementManager implements JobAdvertisementService {
 
 	private JobAdvertisementDao jobAdvertisementDao;
+	private AdvertisementConfirmByEmployeeDao advertisementConfirmByEmployeeDao;
 	private AdvertisementConfirmByEmployeeService advertisementConfirmByEmployeeService;
 	
 	@Autowired
-	public JobAdvertisementManager(JobAdvertisementDao jobAdvertisementDao, AdvertisementConfirmByEmployeeService advertisementConfirmByEmployeeService) {
+	public JobAdvertisementManager(JobAdvertisementDao jobAdvertisementDao, AdvertisementConfirmByEmployeeDao advertisementConfirmByEmployeeDao, AdvertisementConfirmByEmployeeService advertisementConfirmByEmployeeService) {
 		super();
 		this.jobAdvertisementDao = jobAdvertisementDao;
+		this.advertisementConfirmByEmployeeDao = advertisementConfirmByEmployeeDao;
 		this.advertisementConfirmByEmployeeService = advertisementConfirmByEmployeeService;
 	}
 
@@ -91,5 +94,13 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 	@Override
 	public DataResult<JobAdvertisementDto> getById(int advertisementId) {
 		return new SuccessDataResult<JobAdvertisementDto>(this.jobAdvertisementDao.getById(advertisementId));
+	}
+
+	@Override
+	public Result activateAdvertisement(int advertisementId) {
+		AdvertisementConfirmByEmployee advertisementConfirmByEmployee = advertisementConfirmByEmployeeDao.getByAdvertisementId(advertisementId);
+		advertisementConfirmByEmployee.setIsConfirm(true);
+		advertisementConfirmByEmployeeDao.save(advertisementConfirmByEmployee);
+		return new SuccessResult("İş ilanı onaylandı.");
 	}
 }

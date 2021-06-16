@@ -24,4 +24,6 @@ public interface JobAdvertisementService {
 	DataResult<List<JobAdvertisementDto>> getJobAdvertisementDetails(Boolean isActive);
 	
 	DataResult<JobAdvertisementDto> getById(int id);
+	
+	Result activateAdvertisement(int advertisementId);
 }

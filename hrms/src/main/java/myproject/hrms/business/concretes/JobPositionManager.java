@@ -45,4 +45,12 @@ public class JobPositionManager implements JobPositionService {
 		return new SuccessDataResult<JobPosition>(this.jobPositionDao.findByPosition(jobPosition));
 	}
 
+	@Override
+	public Result delete(int jobPositionId) {
+		this.jobPositionDao.deleteById(jobPositionId);
+		return new SuccessResult("İş pozisyonu silindi.");
+	}
+
+	
+
 }

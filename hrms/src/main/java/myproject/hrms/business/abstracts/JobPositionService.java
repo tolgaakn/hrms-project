@@ -12,4 +12,6 @@ public interface JobPositionService {
 	DataResult<JobPosition> getByJobPosition(String jobPosition);
 	
 	Result add(JobPosition jobPosition);
+	
+	Result delete(int jobPositionId);
 }

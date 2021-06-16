@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import myproject.hrms.business.abstracts.AdvertisementConfirmByEmployeeService;
@@ -33,9 +35,9 @@ public class AdvertisementConfirmsByEmployeesController {
 		return advertisementConfirmByEmployeeService.getAll();
 	}
 	
-	@GetMapping("/activate/{advertisementId}")
-	public Result activateAdvertisement(@PathVariable int advertisementId) {
-		return advertisementConfirmByEmployeeService.activateAdvertisement(advertisementId);
+	@GetMapping("/activateAdvertisement")
+	public Result activateAdvertisement(@RequestParam int advertisementId, @RequestParam int employeeId) {
+		return advertisementConfirmByEmployeeService.activateAdvertisement(advertisementId, employeeId);
 	}
 	
 }

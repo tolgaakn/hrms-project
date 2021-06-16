@@ -11,6 +11,7 @@ import myproject.hrms.core.utilities.results.Result;
 import myproject.hrms.core.utilities.results.SuccessDataResult;
 import myproject.hrms.core.utilities.results.SuccessResult;
 import myproject.hrms.dataAccess.abstracts.AdvertisementConfirmByEmployeeDao;
+import myproject.hrms.dataAccess.abstracts.JobAdvertisementDao;
 import myproject.hrms.entities.concretes.AdvertisementConfirmByEmployee;
 import myproject.hrms.entities.concretes.JobAdvertisement;
 
@@ -18,11 +19,13 @@ import myproject.hrms.entities.concretes.JobAdvertisement;
 public class AdvertisementConfirmByEmployeeManager implements AdvertisementConfirmByEmployeeService {
 
 	private AdvertisementConfirmByEmployeeDao advertisementConfirmByEmplyoeeDao;
+	private JobAdvertisementDao jobAdvertisementDao;
 	
 	@Autowired
-	public AdvertisementConfirmByEmployeeManager(AdvertisementConfirmByEmployeeDao advertisementConfirmByEmplyoeeDao) {
+	public AdvertisementConfirmByEmployeeManager(AdvertisementConfirmByEmployeeDao advertisementConfirmByEmplyoeeDao, JobAdvertisementDao jobAdvertisementDao) {
 		super();
 		this.advertisementConfirmByEmplyoeeDao = advertisementConfirmByEmplyoeeDao;
+		this.jobAdvertisementDao = jobAdvertisementDao;
 	}
 
 	@Override
@@ -30,22 +33,32 @@ public class AdvertisementConfirmByEmployeeManager implements AdvertisementConfi
 		return new SuccessDataResult<List<AdvertisementConfirmByEmployee>>(this.advertisementConfirmByEmplyoeeDao.findAll());
 	}
 
-	@Override
-	public Result activateAdvertisement(int advertisementId) {
-		AdvertisementConfirmByEmployee advertisementConfirmByEmployee = advertisementConfirmByEmplyoeeDao.getByAdvertisementId(advertisementId);
-		advertisementConfirmByEmployee.setIsConfirm(true);
-		advertisementConfirmByEmplyoeeDao.save(advertisementConfirmByEmployee);
-		return new SuccessResult("İş ilanı onaylandı.");
-	}
+	
 
 	@Override
 	public Result createActivationRequest(JobAdvertisement jobAdvertisement) {
 		AdvertisementConfirmByEmployee advertisementConfirmByEmployee = new AdvertisementConfirmByEmployee();
 		advertisementConfirmByEmployee.setAdvertisementId(jobAdvertisement.getId());
 		advertisementConfirmByEmployee.setIsConfirm(false);
-		advertisementConfirmByEmployee.setEmployeeId(27);
 		advertisementConfirmByEmplyoeeDao.save(advertisementConfirmByEmployee);
 		return new SuccessResult("İş ilanınız sistem personeli tarafından onaylanacaktır.");
 	}
+
+	@Override
+	public Result activateAdvertisement(int advertisementId, int employeeId) {
+		JobAdvertisement jobAdvertisement = jobAdvertisementDao.getOne(advertisementId);
+		jobAdvertisement.setIsConfirmed(true);
+		
+		AdvertisementConfirmByEmployee advertisementConfirmByEmployee = advertisementConfirmByEmplyoeeDao.getByAdvertisementId(advertisementId);
+		advertisementConfirmByEmployee.setEmployeeId(employeeId);
+		advertisementConfirmByEmployee.setIsConfirm(true);
+		
+		jobAdvertisementDao.save(jobAdvertisement);
+		advertisementConfirmByEmplyoeeDao.save(advertisementConfirmByEmployee);
+		return new SuccessResult("İlan onaylandı.");
+	}
+
+
+
 
 }

@@ -13,5 +13,6 @@ public interface AdvertisementConfirmByEmployeeService {
 	
 	Result createActivationRequest(JobAdvertisement jobAdvertisement);
 	
-	Result activateAdvertisement(int advertisementId);
+	Result activateAdvertisement(int advertisementId, int employeeId);
+	
 }
