@@ -16,12 +16,16 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Int
 
 	JobAdvertisement findByIdEquals(int positionId);
 	
-	@Query("Select new myproject.hrms.entities.dtos.JobAdvertisementDto(j.id, e.companyName, jp.position, j.openPosition, j.createdDate, j.applicationDeadline, j.minSalary, j.maxSalary, c.cityName, jt.jobTypeName, jt.jobTypeColor) "
-			+ "From JobAdvertisement j Inner Join j.employer e Inner Join j.jobPosition jp Inner Join j.city c Inner Join j.jobType jt Where j.isActive=?1")
+	@Query("Select new myproject.hrms.entities.dtos.JobAdvertisementDto(j.id, e.id, e.companyName, jp.position, j.openPosition, j.jobDescription, j.createdDate, j.applicationDeadline, j.minSalary, j.maxSalary, c.cityName, jt.jobTypeName, jt.jobTypeColor, w.workTypeName, w.workTypeColor) "
+			+ "From JobAdvertisement j Inner Join j.employer e Inner Join j.jobPosition jp Inner Join j.city c Inner Join j.jobType jt Inner Join j.workType w Where j.id=:advertisementId")
+	JobAdvertisementDto getById(int advertisementId);
+	
+	@Query("Select new myproject.hrms.entities.dtos.JobAdvertisementDto(j.id, e.id, e.companyName, jp.position, j.openPosition, j.jobDescription, j.createdDate, j.applicationDeadline, j.minSalary, j.maxSalary, c.cityName, jt.jobTypeName, jt.jobTypeColor, w.workTypeName, w.workTypeColor) "
+			+ "From JobAdvertisement j Inner Join j.employer e Inner Join j.jobPosition jp Inner Join j.city c Inner Join j.jobType jt Inner Join j.workType w Where j.isActive=?1")
 	List<JobAdvertisementDto> getJobAdvertisementDetails(Sort sort, Boolean isActive);
 	
-	@Query("Select new myproject.hrms.entities.dtos.JobAdvertisementDto(j.id, e.companyName, jp.position, j.openPosition, j.createdDate, j.applicationDeadline, j.minSalary, j.maxSalary, c.cityName, jt.jobTypeName, jt.jobTypeColor) "
-			+ "From JobAdvertisement j Inner Join j.employer e Inner Join j.jobPosition jp Inner Join j.city c Inner Join j.jobType jt Where j.isActive=?1")
+	@Query("Select new myproject.hrms.entities.dtos.JobAdvertisementDto(j.id, e.id, e.companyName, jp.position, j.openPosition, j.jobDescription, j.createdDate, j.applicationDeadline, j.minSalary, j.maxSalary, c.cityName, jt.jobTypeName, jt.jobTypeColor, w.workTypeName, w.workTypeColor) "
+			+ "From JobAdvertisement j Inner Join j.employer e Inner Join j.jobPosition jp Inner Join j.city c Inner Join j.jobType jt Inner Join j.workType w Where j.isActive=?1")
 	List<JobAdvertisementDto> getJobAdvertisementDetails(Boolean isActive);
 	
 	@Transactional

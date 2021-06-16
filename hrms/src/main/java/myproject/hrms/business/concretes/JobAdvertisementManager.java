@@ -1,17 +1,20 @@
 package myproject.hrms.business.concretes;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import myproject.hrms.business.abstracts.AdvertisementConfirmByEmployeeService;
 import myproject.hrms.business.abstracts.JobAdvertisementService;
 import myproject.hrms.core.utilities.results.DataResult;
 import myproject.hrms.core.utilities.results.ErrorResult;
 import myproject.hrms.core.utilities.results.Result;
 import myproject.hrms.core.utilities.results.SuccessDataResult;
 import myproject.hrms.core.utilities.results.SuccessResult;
+import myproject.hrms.dataAccess.abstracts.AdvertisementConfirmByEmployeeDao;
 import myproject.hrms.dataAccess.abstracts.JobAdvertisementDao;
 import myproject.hrms.entities.concretes.JobAdvertisement;
 import myproject.hrms.entities.dtos.JobAdvertisementDto;
@@ -20,11 +23,13 @@ import myproject.hrms.entities.dtos.JobAdvertisementDto;
 public class JobAdvertisementManager implements JobAdvertisementService {
 
 	private JobAdvertisementDao jobAdvertisementDao;
+	private AdvertisementConfirmByEmployeeService advertisementConfirmByEmployeeService;
 	
 	@Autowired
-	public JobAdvertisementManager(JobAdvertisementDao jobAdvertisementDao) {
+	public JobAdvertisementManager(JobAdvertisementDao jobAdvertisementDao, AdvertisementConfirmByEmployeeService advertisementConfirmByEmployeeService) {
 		super();
 		this.jobAdvertisementDao = jobAdvertisementDao;
+		this.advertisementConfirmByEmployeeService = advertisementConfirmByEmployeeService;
 	}
 
 	@Override
@@ -48,7 +53,14 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 				jobAdvertisement.getCity() != null || 
 				jobAdvertisement.getOpenPosition() > 0) {
 			
+			long millis = System.currentTimeMillis();
+			Date date = new Date(millis);
+			
+			jobAdvertisement.setCreatedDate(date);
+			jobAdvertisement.setIsActive(true);
+			jobAdvertisement.setIsDeleted(false);
 			this.jobAdvertisementDao.save(jobAdvertisement);
+			this.advertisementConfirmByEmployeeService.createActivationRequest(jobAdvertisement);
 			return new SuccessResult(jobAdvertisement.getJobPosition() + " ilanınız başarıyla eklendi.");
 			
 		}
@@ -76,4 +88,8 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 		return new SuccessDataResult<List<JobAdvertisementDto>>(this.jobAdvertisementDao.getJobAdvertisementDetails(isActive), "Data listelendi.");
 	}
 
+	@Override
+	public DataResult<JobAdvertisementDto> getById(int advertisementId) {
+		return new SuccessDataResult<JobAdvertisementDto>(this.jobAdvertisementDao.getById(advertisementId));
+	}
 }

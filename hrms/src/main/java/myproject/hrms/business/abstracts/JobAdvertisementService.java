@@ -22,4 +22,6 @@ public interface JobAdvertisementService {
 	Result updateDeactiveJobAdvertisement(int jobAdvertisementId, int employerId);
 	
 	DataResult<List<JobAdvertisementDto>> getJobAdvertisementDetails(Boolean isActive);
+	
+	DataResult<JobAdvertisementDto> getById(int id);
 }

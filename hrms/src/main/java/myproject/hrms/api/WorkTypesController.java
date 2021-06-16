@@ -8,26 +8,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import myproject.hrms.business.abstracts.JobTypeService;
+import myproject.hrms.business.abstracts.WorkTypeService;
 import myproject.hrms.core.utilities.results.DataResult;
-import myproject.hrms.entities.concretes.JobType;
+import myproject.hrms.entities.concretes.WorkType;
 
 @RestController
-@RequestMapping("/api/jobTypes")
+@RequestMapping("/api/workTypes")
 @CrossOrigin
-public class JobTypesController {
-
-	private JobTypeService jobTypeService;
+public class WorkTypesController {
+	
+	private WorkTypeService workTypeService;
 
 	@Autowired
-	public JobTypesController(JobTypeService jobTypeService) {
+	public WorkTypesController(WorkTypeService workTypeService) {
 		super();
-		this.jobTypeService = jobTypeService;
+		this.workTypeService = workTypeService;
 	}
 	
 	@GetMapping("/getall")
-	public DataResult<List<JobType>> getAll(){
-		return jobTypeService.getAll();
+	public DataResult<List<WorkType>> getAll(){
+		return workTypeService.getAll();
 	}
 	
 }

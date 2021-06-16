@@ -12,9 +12,11 @@ import lombok.NoArgsConstructor;
 public class JobAdvertisementDto {
 
 	private int id;
+	private int employerId;
 	private String companyName;
 	private String position;
 	private int openPosition;
+	private String jobDescription;
 	private Date createdDate;
 	private Date applicationDeadline;
 	private int minSalary;
@@ -22,4 +24,6 @@ public class JobAdvertisementDto {
 	private String cityName;
 	private String jobTypeName;
 	private String jobTypeColor;
+	private String workTypeName;
+	private String workTypeColor;
 }

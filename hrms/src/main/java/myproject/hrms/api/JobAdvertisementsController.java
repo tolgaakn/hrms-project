@@ -41,6 +41,11 @@ public class JobAdvertisementsController {
 		return this.jobAdvertisementService.getAllSortedAscByIsActive();
 	}
 	
+	@GetMapping("/getJobAdvertisementDetailsById")
+	public DataResult<JobAdvertisementDto> getJobAdvertisementDetailsById(int advertisementId){
+		return this.jobAdvertisementService.getById(advertisementId);
+	}
+	
 	@GetMapping("/getAllSortedDescByIsActive")
 	public DataResult<List<JobAdvertisementDto>> getJobAdvertisementDetailsOrderByCreatedDateDesc(){
 		return this.jobAdvertisementService.getAllSortedDescByIsActive();
