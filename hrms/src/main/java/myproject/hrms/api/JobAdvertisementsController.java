@@ -51,6 +51,11 @@ public class JobAdvertisementsController {
 		return this.jobAdvertisementService.getAllSortedDescByIsActive();
 	}
 	
+	@GetMapping("/getJobAdvertisementDetailsByJobPositionIdAndCityId")
+	public DataResult<List<JobAdvertisementDto>> getJobAdvertisementDetailsByJobPositionIdAndCityId(int jobPositionId, int cityId){
+		return this.jobAdvertisementService.getJobAdvertisementDetailsByJobPositionIdAndCityId(jobPositionId, cityId);
+	}
+	
 	@PostMapping("/add")
 	public Result add(@RequestBody JobAdvertisement jobAdvertisement) {
 		return jobAdvertisementService.add(jobAdvertisement);

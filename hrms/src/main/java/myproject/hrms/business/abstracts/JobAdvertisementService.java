@@ -23,6 +23,8 @@ public interface JobAdvertisementService {
 	
 	DataResult<List<JobAdvertisementDto>> getJobAdvertisementDetails(Boolean isActive);
 	
+	DataResult<List<JobAdvertisementDto>> getJobAdvertisementDetailsByJobPositionIdAndCityId(int jobPositionId, int cityId);
+	
 	DataResult<JobAdvertisementDto> getById(int id);
 	
 	Result activateAdvertisement(int advertisementId);

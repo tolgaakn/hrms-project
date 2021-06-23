@@ -16,17 +16,44 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Int
 
 	JobAdvertisement findByIdEquals(int positionId);
 	
-	@Query("Select new myproject.hrms.entities.dtos.JobAdvertisementDto(j.id, e.id, e.companyName, jp.position, j.openPosition, j.jobDescription, j.createdDate, j.applicationDeadline, j.minSalary, j.maxSalary, c.cityName, jt.jobTypeName, jt.jobTypeColor, w.workTypeName, w.workTypeColor) "
-			+ "From JobAdvertisement j Inner Join j.employer e Inner Join j.jobPosition jp Inner Join j.city c Inner Join j.jobType jt Inner Join j.workType w Where j.id=:advertisementId")
+	@Query("Select new myproject.hrms.entities.dtos.JobAdvertisementDto(j.id, e.id, e.companyName, jp.position, j.openPosition, j.jobDescription, j.createdDate, j.applicationDeadline,"
+			+ "j.minSalary, j.maxSalary, c.cityName, jt.jobTypeName, jt.jobTypeColor, w.workTypeName, w.workTypeColor) "
+			+ "From JobAdvertisement j Inner Join j.employer e "
+			+ "Inner Join j.jobPosition jp "
+			+ "Inner Join j.city c "
+			+ "Inner Join j.jobType jt "
+			+ "Inner Join j.workType w Where j.id=:advertisementId")
 	JobAdvertisementDto getById(int advertisementId);
 	
-	@Query("Select new myproject.hrms.entities.dtos.JobAdvertisementDto(j.id, e.id, e.companyName, jp.position, j.openPosition, j.jobDescription, j.createdDate, j.applicationDeadline, j.minSalary, j.maxSalary, c.cityName, jt.jobTypeName, jt.jobTypeColor, w.workTypeName, w.workTypeColor) "
-			+ "From JobAdvertisement j Inner Join j.employer e Inner Join j.jobPosition jp Inner Join j.city c Inner Join j.jobType jt Inner Join j.workType w Where j.isActive=?1 And j.isConfirmed=true")
+	@Query("Select new myproject.hrms.entities.dtos.JobAdvertisementDto(j.id, e.id, e.companyName, jp.position, j.openPosition, j.jobDescription, j.createdDate, j.applicationDeadline,"
+			+ "j.minSalary, j.maxSalary, c.cityName, jt.jobTypeName, jt.jobTypeColor, w.workTypeName, w.workTypeColor) "
+			+ "From JobAdvertisement j Inner Join j.employer e "
+			+ "Inner Join j.jobPosition jp "
+			+ "Inner Join j.city c "
+			+ "Inner Join j.jobType jt "
+			+ "Inner Join j.workType w "
+			+ "Where j.isActive=?1 And j.isConfirmed=true")
 	List<JobAdvertisementDto> getJobAdvertisementDetails(Sort sort, Boolean isActive);
 	
-	@Query("Select new myproject.hrms.entities.dtos.JobAdvertisementDto(j.id, e.id, e.companyName, jp.position, j.openPosition, j.jobDescription, j.createdDate, j.applicationDeadline, j.minSalary, j.maxSalary, c.cityName, jt.jobTypeName, jt.jobTypeColor, w.workTypeName, w.workTypeColor) "
-			+ "From JobAdvertisement j Inner Join j.employer e Inner Join j.jobPosition jp Inner Join j.city c Inner Join j.jobType jt Inner Join j.workType w Where j.isActive=?1 And j.isConfirmed=true")
+	@Query("Select new myproject.hrms.entities.dtos.JobAdvertisementDto(j.id, e.id, e.companyName, jp.position, j.openPosition, j.jobDescription, j.createdDate, j.applicationDeadline,"
+			+ "j.minSalary, j.maxSalary, c.cityName, jt.jobTypeName, jt.jobTypeColor, w.workTypeName, w.workTypeColor) "
+			+ "From JobAdvertisement j Inner Join j.employer e "
+			+ "Inner Join j.jobPosition jp "
+			+ "Inner Join j.city c "
+			+ "Inner Join j.jobType jt "
+			+ "Inner Join j.workType w "
+			+ "Where j.isActive=?1 And j.isConfirmed=true")
 	List<JobAdvertisementDto> getJobAdvertisementDetails(Boolean isActive);
+	
+	@Query("Select new myproject.hrms.entities.dtos.JobAdvertisementDto(j.id, e.id, e.companyName, jp.position, j.openPosition, j.jobDescription, j.createdDate, j.applicationDeadline,"
+			+ "j.minSalary, j.maxSalary, c.cityName, jt.jobTypeName, jt.jobTypeColor, w.workTypeName, w.workTypeColor) "
+			+ "From JobAdvertisement j Inner Join j.employer e "
+			+ "Inner Join j.jobPosition jp "
+			+ "Inner Join j.city c "
+			+ "Inner Join j.jobType jt "
+			+ "Inner Join j.workType w "
+			+ "Where j.isActive=true And j.isConfirmed=true And jp.id=:jobPositionId And c.id=:cityId")
+	List<JobAdvertisementDto> getJobAdvertisementDetailsByJobPositionIdAndCityId(int jobPositionId, int cityId);
 	
 	@Transactional
 	@Modifying

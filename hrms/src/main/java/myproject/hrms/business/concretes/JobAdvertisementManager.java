@@ -103,4 +103,10 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 		advertisementConfirmByEmployeeDao.save(advertisementConfirmByEmployee);
 		return new SuccessResult("İş ilanı onaylandı.");
 	}
+
+	@Override
+	public DataResult<List<JobAdvertisementDto>> getJobAdvertisementDetailsByJobPositionIdAndCityId(int jobPositionId, int cityId) {
+		return new SuccessDataResult<List<JobAdvertisementDto>>(this.jobAdvertisementDao.getJobAdvertisementDetailsByJobPositionIdAndCityId(jobPositionId, cityId));
+	}
+
 }
