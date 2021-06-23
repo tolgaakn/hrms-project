@@ -46,6 +46,9 @@ public class CurriculumVitae {
 	@Column(name = "created_date")
 	private Date createdDate;
 	
+	@Column(name = "curriculum_vitae_name")
+	private String curriculumVitaeName;
+	
 	@OneToMany(mappedBy = "curriculumVitae")
 	private List<CandidateEducation> candidateEducations;
 	
