@@ -14,6 +14,7 @@ import myproject.hrms.dataAccess.abstracts.AdvertisementConfirmByEmployeeDao;
 import myproject.hrms.dataAccess.abstracts.JobAdvertisementDao;
 import myproject.hrms.entities.concretes.AdvertisementConfirmByEmployee;
 import myproject.hrms.entities.concretes.JobAdvertisement;
+import myproject.hrms.entities.dtos.JobAdvertisementDto;
 
 @Service
 public class AdvertisementConfirmByEmployeeManager implements AdvertisementConfirmByEmployeeService {
@@ -56,6 +57,26 @@ public class AdvertisementConfirmByEmployeeManager implements AdvertisementConfi
 		jobAdvertisementDao.save(jobAdvertisement);
 		advertisementConfirmByEmplyoeeDao.save(advertisementConfirmByEmployee);
 		return new SuccessResult("İlan onaylandı.");
+	}
+
+	@Override
+	public DataResult<List<JobAdvertisementDto>> getJobAdvertisementConfirmRequests() {
+		return new SuccessDataResult<List<JobAdvertisementDto>>(this.advertisementConfirmByEmplyoeeDao.getJobAdvertisementConfirmRequests());
+	}
+
+	@Override
+	public Result rejectAdvertisement(int advertisementId, int employeeId) {
+		JobAdvertisement jobAdvertisement = jobAdvertisementDao.getOne(advertisementId);
+		jobAdvertisement.setIsConfirmed(false);
+		jobAdvertisement.setIsActive(false);
+		
+		AdvertisementConfirmByEmployee advertisementConfirmByEmployee = advertisementConfirmByEmplyoeeDao.getByAdvertisementId(advertisementId);
+		advertisementConfirmByEmployee.setEmployeeId(employeeId);
+		advertisementConfirmByEmployee.setIsConfirm(false);
+		
+		jobAdvertisementDao.save(jobAdvertisement);
+		advertisementConfirmByEmplyoeeDao.save(advertisementConfirmByEmployee);
+		return new SuccessResult("İlan reddedildi.");
 	}
 
 

@@ -30,7 +30,7 @@ public class CandidateSkill {
 	//private int curriculumVitaesId;
 	
 	@ManyToOne
-	@JoinColumn(name = "curriculum_vitaes_id")
+	@JoinColumn(name = "curriculum_vitae_id")
 	private CurriculumVitae curriculumVitae;
 	
 	@ManyToOne

@@ -9,5 +9,5 @@ import myproject.hrms.entities.concretes.CandidateLanguage;
 
 public interface CandidateLanguageDao extends JpaRepository<CandidateLanguage, Integer> {
 
-	List<CandidateLanguage> getByCurriculumVitaesId(Sort sort, int curriculumVitaesId);
+	List<CandidateLanguage> getByCurriculumVitaeId(Sort sort, int curriculumVitaesId);
 }

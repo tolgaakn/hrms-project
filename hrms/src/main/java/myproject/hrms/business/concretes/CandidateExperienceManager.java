@@ -34,7 +34,7 @@ public class CandidateExperienceManager implements CandidateExperienceService {
 	@Override
 	public DataResult<List<CandidateExperience>> getByCurriculumVitaesId(int curriculumVitaesId) {
 		Sort sort = Sort.by(Sort.Direction.DESC, "quitDate");
-		return new SuccessDataResult<List<CandidateExperience>>(this.candidateExperienceDao.getByCurriculumVitaesId(sort, curriculumVitaesId));
+		return new SuccessDataResult<List<CandidateExperience>>(this.candidateExperienceDao.getByCurriculumVitaeId(sort, curriculumVitaesId));
 	}
 
 }

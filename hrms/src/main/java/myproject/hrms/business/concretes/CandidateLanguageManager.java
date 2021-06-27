@@ -34,7 +34,7 @@ public class CandidateLanguageManager implements CandidateLanguageService {
 	@Override
 	public DataResult<List<CandidateLanguage>> getByCurriculumVitaesId(int curriculumVitaesId) {
 		Sort sort = Sort.by(Sort.Direction.DESC, "languageLevel");
-		return new SuccessDataResult<List<CandidateLanguage>>(this.candidateLanguageDao.getByCurriculumVitaesId(sort, curriculumVitaesId));
+		return new SuccessDataResult<List<CandidateLanguage>>(this.candidateLanguageDao.getByCurriculumVitaeId(sort, curriculumVitaesId));
 	}
 
 }

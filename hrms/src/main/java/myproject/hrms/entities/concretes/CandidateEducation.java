@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -26,19 +28,17 @@ import lombok.NoArgsConstructor;
 public class CandidateEducation {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 	
-	//@Column(name = "curriculum_vitaes_id")
-	//private int curriculumVitaesId;
-	
 	@ManyToOne(targetEntity = CurriculumVitae.class, fetch = FetchType.EAGER)
-	@JoinColumn(name = "curriculum_vitaes_id", insertable = false, updatable = false)
+	@JoinColumn(name = "curriculum_vitae_id", insertable = false, updatable = false)
 	@JsonIgnore
 	private CurriculumVitae curriculumVitae;
 	
-	@Column(name = "curriculum_vitaes_id")
-	private int curriculumVitaesId;
+	@Column(name = "curriculum_vitae_id")
+	private int curriculumVitaeId;
 	
 	@Column(name = "university_name")
 	private String universityName;
@@ -46,8 +46,9 @@ public class CandidateEducation {
 	@Column(name = "department_name")
 	private String departmentName;
 	
-	@Column(name = "degree")
-	private String degree;
+	@ManyToOne
+	@JoinColumn(name = "degree_id")
+	private Degree degree;
 	
 	@Column(name = "started_date")
 	private Date startedDate;

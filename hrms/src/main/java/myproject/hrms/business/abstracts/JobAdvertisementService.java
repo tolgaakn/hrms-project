@@ -25,6 +25,8 @@ public interface JobAdvertisementService {
 	
 	DataResult<List<JobAdvertisementDto>> getJobAdvertisementDetailsByJobPositionIdAndCityId(int jobPositionId, int cityId);
 	
+	DataResult<List<JobAdvertisementDto>> getJobAdvertisementDetailsByIsConfirmed(Boolean isConfirmed);
+	
 	DataResult<JobAdvertisementDto> getById(int id);
 	
 	Result activateAdvertisement(int advertisementId);

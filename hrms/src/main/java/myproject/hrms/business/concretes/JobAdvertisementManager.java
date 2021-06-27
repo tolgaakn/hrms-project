@@ -17,6 +17,7 @@ import myproject.hrms.core.utilities.results.SuccessResult;
 import myproject.hrms.dataAccess.abstracts.AdvertisementConfirmByEmployeeDao;
 import myproject.hrms.dataAccess.abstracts.JobAdvertisementDao;
 import myproject.hrms.entities.concretes.AdvertisementConfirmByEmployee;
+import myproject.hrms.entities.concretes.Employer;
 import myproject.hrms.entities.concretes.JobAdvertisement;
 import myproject.hrms.entities.dtos.JobAdvertisementDto;
 
@@ -107,6 +108,11 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 	@Override
 	public DataResult<List<JobAdvertisementDto>> getJobAdvertisementDetailsByJobPositionIdAndCityId(int jobPositionId, int cityId) {
 		return new SuccessDataResult<List<JobAdvertisementDto>>(this.jobAdvertisementDao.getJobAdvertisementDetailsByJobPositionIdAndCityId(jobPositionId, cityId));
+	}
+
+	@Override
+	public DataResult<List<JobAdvertisementDto>> getJobAdvertisementDetailsByIsConfirmed(Boolean isConfirmed) {
+		return new SuccessDataResult<List<JobAdvertisementDto>>(this.jobAdvertisementDao.getJobAdvertisementDetailsByIsConfirmed(isConfirmed));
 	}
 
 }

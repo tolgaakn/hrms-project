@@ -9,5 +9,5 @@ import myproject.hrms.entities.concretes.CandidateExperience;
 
 public interface CandidateExperienceDao extends JpaRepository<CandidateExperience, Integer> {
 
-	List<CandidateExperience> getByCurriculumVitaesId(Sort sort, int curriculumVitaesId);
+	List<CandidateExperience> getByCurriculumVitaeId(Sort sort, int curriculumVitaesId);
 }

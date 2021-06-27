@@ -1,5 +1,6 @@
 package myproject.hrms.business.concretes;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +22,8 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
 
 	private CurriculumVitaeDao curriculumVitaeDao;
 	private ImageService imageService;
-	
+	long millis = System.currentTimeMillis();
+	Date date = new Date(millis);
 	@Autowired
 	public CurriculumVitaeManager(CurriculumVitaeDao curriculumVitaeDao, ImageService imageService) {
 		super();
@@ -31,6 +33,8 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
 
 	@Override
 	public Result add(CurriculumVitae curriculumVitae) {
+		
+		curriculumVitae.setCreatedDate(date);
 		this.curriculumVitaeDao.save(curriculumVitae);
 		return new SuccessResult("CV eklendi.");
 	}

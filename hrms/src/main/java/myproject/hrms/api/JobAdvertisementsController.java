@@ -56,6 +56,11 @@ public class JobAdvertisementsController {
 		return this.jobAdvertisementService.getJobAdvertisementDetailsByJobPositionIdAndCityId(jobPositionId, cityId);
 	}
 	
+	@GetMapping("/getJobAdvertisementDetailsByIsConfirmed")
+	public DataResult<List<JobAdvertisementDto>> getJobAdvertisementDetailsByIsConfirmed(Boolean isConfirmed){
+		return this.jobAdvertisementService.getJobAdvertisementDetailsByIsConfirmed(isConfirmed);
+	}
+	
 	@PostMapping("/add")
 	public Result add(@RequestBody JobAdvertisement jobAdvertisement) {
 		return jobAdvertisementService.add(jobAdvertisement);

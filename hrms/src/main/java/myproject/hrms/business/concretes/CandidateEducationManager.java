@@ -35,7 +35,7 @@ public class CandidateEducationManager implements CandidateEducationService {
 	@Override
 	public DataResult<List<CandidateEducation>> getByCurriculumVitaesId(int curriculumVitaesId) {
 		Sort sort = Sort.by(Sort.Direction.DESC, "graduatedDate");
-		return new SuccessDataResult<List<CandidateEducation>>(this.candidateEducationDao.getByCurriculumVitaesId(sort, curriculumVitaesId));
+		return new SuccessDataResult<List<CandidateEducation>>(this.candidateEducationDao.getByCurriculumVitaeId(sort, curriculumVitaesId));
 	}
 
 }

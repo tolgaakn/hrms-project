@@ -31,12 +31,12 @@ public class CandidateLanguage {
 	//private int curriculumVitaesId;
 	
 	@ManyToOne(targetEntity = CurriculumVitae.class, fetch = FetchType.EAGER)
-	@JoinColumn(name = "curriculum_vitaes_id", insertable = false, updatable = false)
+	@JoinColumn(name = "curriculum_vitae_id", insertable = false, updatable = false)
 	@JsonIgnore
 	private CurriculumVitae curriculumVitae;
 	
-	@Column(name = "curriculum_vitaes_id")
-	private int curriculumVitaesId;
+	@Column(name = "curriculum_vitae_id")
+	private int curriculumVitaeId;
 	
 	@Column(name = "language_name")
 	private String languageName;

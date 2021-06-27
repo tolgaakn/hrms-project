@@ -40,9 +40,6 @@ public class CurriculumVitae {
 	@Column(name = "linkedin_link")
 	private String linkedinLink;
 	
-	@Column(name = "candidate_cover_letter_id")
-	private int candidateCoverLetterId;
-	
 	@Column(name = "created_date")
 	private Date createdDate;
 	
@@ -61,6 +58,4 @@ public class CurriculumVitae {
 	@OneToMany(mappedBy = "curriculumVitae")
 	private List<CandidateLanguage> candidateLanguages;
 	
-	@OneToMany(mappedBy = "curriculumVitae")
-	private List<CoverLetter> coverLetters;
 }

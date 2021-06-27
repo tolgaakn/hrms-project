@@ -55,6 +55,16 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Int
 			+ "Where j.isActive=true And j.isConfirmed=true And jp.id=:jobPositionId And c.id=:cityId")
 	List<JobAdvertisementDto> getJobAdvertisementDetailsByJobPositionIdAndCityId(int jobPositionId, int cityId);
 	
+	@Query("Select new myproject.hrms.entities.dtos.JobAdvertisementDto(j.id, e.id, e.companyName, jp.position, j.openPosition, j.jobDescription, j.createdDate, j.applicationDeadline,"
+			+ "j.minSalary, j.maxSalary, c.cityName, jt.jobTypeName, jt.jobTypeColor, w.workTypeName, w.workTypeColor) "
+			+ "From JobAdvertisement j Inner Join j.employer e "
+			+ "Inner Join j.jobPosition jp "
+			+ "Inner Join j.city c "
+			+ "Inner Join j.jobType jt "
+			+ "Inner Join j.workType w "
+			+ "Where j.isConfirmed=:isConfirmed")
+	List<JobAdvertisementDto> getJobAdvertisementDetailsByIsConfirmed(Boolean isConfirmed);
+	
 	@Transactional
 	@Modifying
 	@Query("UPDATE myproject.hrms.entities.concretes.JobAdvertisement SET isActive = false WHERE id=:jobAdvertisementId AND employer.id=:employerId")
