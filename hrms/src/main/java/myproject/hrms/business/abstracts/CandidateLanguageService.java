@@ -10,5 +10,5 @@ public interface CandidateLanguageService {
 
 	Result add(CandidateLanguage candidateLanguage);
 	
-	DataResult<List<CandidateLanguage>> getByCurriculumVitaesId(int curriculumVitaesId);
+	DataResult<List<CandidateLanguage>> getByCurriculumVitaeId(int curriculumVitaeId);
 }

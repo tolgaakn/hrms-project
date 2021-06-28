@@ -35,7 +35,7 @@ public class CandidateLanguagesController {
 	}
 	
 	@GetMapping("/getByCurriculumVitaesId")
-	public DataResult<List<CandidateLanguage>> getByCurriculumVitaesId(@RequestParam int curriculumVitaeId){
-		return this.candidateLanguageService.getByCurriculumVitaesId(curriculumVitaeId);
+	public DataResult<List<CandidateLanguage>> getByCurriculumVitaeId(@RequestParam int curriculumVitaeId){
+		return this.candidateLanguageService.getByCurriculumVitaeId(curriculumVitaeId);
 	}
 }
